@@ -1,57 +1,58 @@
 class Node:
     def __init__(self, value):
-        self.value = value
         self.next = None
-
-
+        self.value = value
 class Queue:
     def __init__(self):
-        self.front = None
-        self.rear = None
+        self.first = None
+        self.last = None
         self.size = 0
 
     def is_empty(self):
-        return self.front == None
+        return self.first == None
 
     def sizeof(self):
         return self.size
 
     def peek(self):
-        return self.front.value
+        if self.is_empty():
+            return None
+        return self.first.value
 
     def enqueue(self, value):
         node = Node(value)
-        self.size += 1
         if self.is_empty():
-            self.front = self.rear = node
-            return
-        self.rear.next = node
-        self.rear = node
-
+            self.first = self.last = node
+        self.size +=1
+        self.last.next = node
+        self.last = node
 
     def dequeue(self):
         if self.is_empty():
             return None
-        self.size -= 1
-        temp = self.front
-        self.front = temp.next
+        self.size -=1
+        temp = self.first
+        self.first = temp.next
 
-        if self.front == None:
-            self.rear = None
+        if self.first == None:
+            self.last = None
         return temp.value
-
 
     def show(self):
         showlist = list()
         if self.is_empty():
-            print('Queue is empty')
+            print("Queue is empty")
             return
-        temp = self.front
+        temp = self.first
         while temp != None:
             showlist.append(temp.value)
             temp = temp.next
+            self.size -=1
 
         return showlist
+
+
+
 
 # Example usage
 q = Queue()
