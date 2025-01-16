@@ -1,4 +1,5 @@
-#from graphviz import Digraph
+from graphviz import Digraph
+
 
 class Node:
     def __init__(self, data):
@@ -93,4 +94,4 @@ linked_list.delete_node(2)
 print("\nLinked list after deleting a node:")
 linked_list.display()
 
-#linked_list.visualize()
+# linked_list.visualize()

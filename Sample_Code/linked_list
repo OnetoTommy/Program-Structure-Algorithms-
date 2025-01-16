@@ -1,0 +1,10 @@
+// The Linked List
+digraph {
+	0 [label=0]
+	1 [label=1]
+	0 -> 1
+	2 [label=10]
+	1 -> 2
+	3 [label=3]
+	2 -> 3
+}
