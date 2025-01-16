@@ -1,31 +1,35 @@
 class Node:
     def __init__(self, data):
-        self.data = data
-        self.next = None
+       self.next = None
+       self.data = data
+
 class LinkedList:
     def __init__(self):
         self.head = None
 
     def display(self):
-        temp = self.head
-        while temp:
-            print(temp.data, end="->")
-            temp = temp.next
-        print("None")
+        current = self.head
+        while current:
+           print(current.data, end="->")
+           current = current.next
+        print('None')
 
     def append(self, data):
         node = Node(data)
         if self.head is None:
             self.head = node
             return
-        temp = self.head
-        while temp.next:
-            temp = temp.next
-        temp.next = node
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = node
 
     def insert_at_beginning(self, data):
         node = Node(data)
-        node.next = self.head
+        if self.head is None:
+            self.head = node
+        current = self.head
+        node.next = current
         self.head = node
 
     def insert_after_node(self, prev_node, data):
@@ -40,19 +44,18 @@ class LinkedList:
         current = self.head
         if current and current.data == key:
             self.head = current.next
-            current = None
-            return
+            return current.data
 
         prev = None
         while current and current.data != key:
             prev = current
             current = current.next
-
-        if current is None:
+        if not current:
+            print("Node not found")
             return
-
         prev.next = current.next
         current = None
+
 
 #Example usage:
 linked_list = LinkedList()
