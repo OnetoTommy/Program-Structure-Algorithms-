@@ -3,7 +3,7 @@ import java.util.Stack;
 public class HW1_Q3 {
 
     public static void main(String[] args) {
-    String string = "I { love [ the {rains}()]}";
+    String string = "I { love [ the {rains ] ()";
     boolean isCorrespond = isParenthesis(string);
     System.out.println("The output is " + isCorrespond);
   }
