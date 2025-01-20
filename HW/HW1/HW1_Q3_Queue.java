@@ -3,11 +3,12 @@ import java.util.Deque;
 
 public class HW1_Q3_Queue {
   public static void main(String[] args) {
+    
     String string = "I { love [ the {rains}()]}";
     boolean isCorrespond = addParenthesis(string);
     System.out.println("The output is " + isCorrespond);
   }
-
+  
   public static boolean addParenthesis(String string) {
     Deque<Character> queue = new ArrayDeque<>();
     for (char character : string.toCharArray()) {

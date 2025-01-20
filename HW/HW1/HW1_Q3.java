@@ -1,17 +1,14 @@
-import java.lang.reflect.Array;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Stack;
 
 public class HW1_Q3 {
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
     String string = "I { love [ the {rains}()]}";
-    boolean isCorrespond = addParenthesis(string);
+    boolean isCorrespond = isParenthesis(string);
     System.out.println("The output is " + isCorrespond);
   }
 
-  public static boolean addParenthesis(String string){
+  public static boolean isParenthesis(String string){
     Stack<Character> queue = new Stack<>();
     for(char character : string.toCharArray()){
       if (character == '{' || character == '(' || character == '[') {
