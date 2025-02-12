@@ -1,6 +1,5 @@
 from collections import defaultdict
 
-from networkx import neighbors
 
 
 class solution:
@@ -23,7 +22,7 @@ class solution:
     def reverse_dfs(self, node, scc):
         self.visited.add(node)
         scc.append(node)
-        for neighbor in self.graph[node]:
+        for neighbor in self.transpose_graph[node]:
             if neighbor not in self.visited:
                 self.reverse_dfs(neighbor, scc)
 
@@ -37,12 +36,14 @@ class solution:
                 self.transpose_graph[neighbors].append(node)
 
         self.visited.clear()
-        for node in self.stack:
-            self.visited.add(node)
-            scc = []
+        while self.stack:
+            node = self.stack.pop()
             if node not in self.visited:
+                scc = []
                 self.reverse_dfs(node, scc)
                 self.sccs.append(scc)
+
+        return self.sccs
 
 # Example Usage
 graph = {
@@ -54,5 +55,5 @@ graph = {
     6: []
 }
 
-scc_finder = SCCFinder(graph)
+scc_finder = solution(graph)
 print(scc_finder.find_sccs())  # 输出: [[6], [3], [2, 5, 4, 1]]
