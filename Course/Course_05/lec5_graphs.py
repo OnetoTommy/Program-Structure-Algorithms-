@@ -70,7 +70,7 @@ class Graph:
         plt.show() 
 
     def explore(self, v):
- 
+
         # Mark the current node as visited
         # and print it
         v.visited = True
@@ -78,7 +78,7 @@ class Graph:
         v.pre = self.clock
         self.clock += 1
         print("Exploring vertex: %d"%(v.id))
- 
+
         # Recur for all the vertices adjacent to this vertex
         for uId in v.neighbors:
             if uId in self.vertices:
@@ -86,7 +86,8 @@ class Graph:
                 if u.visited == False:
                     self.explore(u)
                     u.prev = v.id
-        
+
+
         v.post = self.clock
         self.clock += 1
 
