@@ -88,19 +88,26 @@ class Graph:
 
 # Create a graph with 4 vertices and 5 edges
 graph = Graph()
-for i in range(4):
+for i in range(6):
     graph.add_vertex(Vertex(i))
 
 # 1: undir; 2: dir
-ex= 3
+ex= 1
 
 if ex == 1:
     graph.add_edge(0, 1)
     graph.add_edge(0, 2)
-    graph.add_edge(0, 3)
+    graph.add_edge(1, 0)
     graph.add_edge(1, 2)
-    graph.add_edge(1, 3)
+    graph.add_edge(2, 0)
+    graph.add_edge(2, 1)
     graph.add_edge(2, 3)
+    graph.add_edge(2, 4)
+    graph.add_edge(3, 2)
+    graph.add_edge(3, 4)
+    graph.add_edge(4, 2)
+    graph.add_edge(5, None)
+
 elif ex == 2:
     graph.add_directed_edge(0, 1)
     graph.add_directed_edge(0, 2)

@@ -103,42 +103,42 @@ class Graph:
 # Create a graph with 4 vertices and 5 edges
 graph = Graph()
 
-for i in range(1,17):
-    graph.add_vertex(Vertex(i))
-
-# 1: undir; 2: dir
-ex = 2
-
-if ex == 1:
-    graph.add_edge(0, 1)
-    graph.add_edge(0, 2)
-    graph.add_edge(0, 3)
-    graph.add_edge(1, 2)
-    graph.add_edge(1, 3)
-    graph.add_edge(2, 3)
-elif ex == 2:
-    graph.add_directed_edge(1, 4)
-    graph.add_directed_edge(1, 5)
-    graph.add_directed_edge(2, 7)
-    graph.add_directed_edge(2, 8)
-    graph.add_directed_edge(3, 12)
-    graph.add_directed_edge(3, 13)
-    graph.add_directed_edge(4, 14)
-    graph.add_directed_edge(4, 15)
-    graph.add_directed_edge(5, 3)
-    graph.add_directed_edge(5, 6)
-    graph.add_directed_edge(6, 2)
-    graph.add_directed_edge(6, 9)
-    graph.add_directed_edge(7, 1)
-    graph.add_directed_edge(7, 10)
-    graph.add_directed_edge(8, 11)
-    graph.add_directed_edge(8, 16)
-
-elif ex == 3:
-    graph.add_directed_edge(0, 1)
-    graph.add_directed_edge(0, 2)
-    graph.add_directed_edge(3, 0)
-    graph.add_directed_edge(3, 2)
+# for i in range(1,17):
+#     graph.add_vertex(Vertex(i))
+#
+# # 1: undir; 2: dir
+# ex = 2
+#
+# if ex == 1:
+#     graph.add_edge(0, 1)
+#     graph.add_edge(0, 2)
+#     graph.add_edge(0, 3)
+#     graph.add_edge(1, 2)
+#     graph.add_edge(1, 3)
+#     graph.add_edge(2, 3)
+# elif ex == 2:
+#     graph.add_directed_edge(1, 4)
+#     graph.add_directed_edge(1, 5)
+#     graph.add_directed_edge(2, 7)
+#     graph.add_directed_edge(2, 8)
+#     graph.add_directed_edge(3, 12)
+#     graph.add_directed_edge(3, 13)
+#     graph.add_directed_edge(4, 14)
+#     graph.add_directed_edge(4, 15)
+#     graph.add_directed_edge(5, 3)
+#     graph.add_directed_edge(5, 6)
+#     graph.add_directed_edge(6, 2)
+#     graph.add_directed_edge(6, 9)
+#     graph.add_directed_edge(7, 1)
+#     graph.add_directed_edge(7, 10)
+#     graph.add_directed_edge(8, 11)
+#     graph.add_directed_edge(8, 16)
+#
+# elif ex == 3:
+#     graph.add_directed_edge(0, 1)
+#     graph.add_directed_edge(0, 2)
+#     graph.add_directed_edge(3, 0)
+#     graph.add_directed_edge(3, 2)
 
 graph.DFS()
 graph.visualize()
