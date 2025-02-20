@@ -1,9 +1,6 @@
 def c_two_degree(graph):
-
     degree = {}
     two_degree = {}
-
-
     for v, neighbors in graph.items():
         degree[v] = len(neighbors)
 
