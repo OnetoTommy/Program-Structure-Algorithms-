@@ -1,46 +1,45 @@
 from collections import defaultdict
 
-class SCCFinder:
+class SCCs:
     def __init__(self, graph):
         self.graph = graph
-        self.transposed_graph = defaultdict(list)
         self.visited = set()
-        self.stack = []
-        self.sccs = []
+        self.transpose_graph = defaultdict(list)
+        self.stack = list()
+        self.sccs = list()
 
     def dfs(self, node):
         self.visited.add(node)
         for neighbor in self.graph[node]:
             if neighbor not in self.visited:
-                self.dfs(neighbor)  
+                self.dfs(neighbor)
         self.stack.append(node)
 
     def reverse_dfs(self, node, scc):
         self.visited.add(node)
         scc.append(node)
-        for neighbor in self.transposed_graph[node]:
+        for neighbor in self.transpose_graph[node]:
             if neighbor not in self.visited:
                 self.reverse_dfs(neighbor, scc)
 
-    def find_sccs(self):
-        # Step 1: Perform DFS and store finish times
+    def find_scc(self):
         for node in self.graph:
             if node not in self.visited:
                 self.dfs(node)
 
-        # Step 2: Transpose the graph
+        self.visited.clear()
+        # transpose the graph
         for node in self.graph:
             for neighbor in self.graph[node]:
-                self.transposed_graph[neighbor].append(node)
+                self.transpose_graph[neighbor].append(node)
 
-        # Step 3: Process nodes in decreasing finish order
-        self.visited.clear()
+
         while self.stack:
-            node = self.stack.pop()
-            if node not in self.visited:
-                scc = []
-                self.reverse_dfs(node, scc)
-                self.sccs.append(scc)
+           node = self.stack.pop()
+           if node not in self.visited:
+               scc = []
+               self.reverse_dfs(node, scc)
+               self.sccs.append(scc)
 
         return self.sccs
 
@@ -54,5 +53,5 @@ graph = {
     6: []
 }
 
-scc_finder = SCCFinder(graph)
-print(scc_finder.find_sccs())  # 输出: [[6], [3], [2, 5, 4, 1]]
+scc_finder = SCCs(graph)
+print(scc_finder.find_scc())  # 输出: [[6], [3], [2, 5, 4, 1]]
