@@ -17,7 +17,7 @@ def compute_twodegree(adj):
     for u, neighbors in adj.items():
         twodegree[u] = sum(degree[v] for v in neighbors)
 
-    return twodegree
+    return degree, twodegree
 
 
 # Example Graph (Adjacency List)
@@ -31,9 +31,10 @@ graph = {
 }
 
 # Compute twodegree values
-result = compute_twodegree(graph)
+degree, result = compute_twodegree(graph)
 
 # Print Results
 print("twodegree values:")
 for vertex, value in result.items():
     print(f"Vertex {vertex}: {value}")
+print(degree)
