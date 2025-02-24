@@ -12,7 +12,7 @@ G = nx.DiGraph()
 G.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8])
 
 # Add directed edges
-G.add_edges_from([(7, 6), (6, 5), (5, 1), (5, 2), (8, 4), (8, 3)])
+G.add_edges_from([(7, 6), (6, 5), (6, 2), (5, 1), (8, 4), (8, 3)])
 
 # Draw the directed graph
 plt.figure(figsize=(16, 12))

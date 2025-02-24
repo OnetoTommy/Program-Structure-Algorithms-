@@ -1,4 +1,3 @@
-
 class parenthesis:
     def __init__(self, string):
         self.stack = []
