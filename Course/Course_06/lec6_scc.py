@@ -46,12 +46,14 @@ class SCCFinder:
 
 # Example Usage
 graph = {
-    1: [2],
-    2: [3, 5],
-    3: [6],
-    4: [1],
-    5: [4],
-    6: []
+    'a': ['b','c','d','f'],
+    'b': ['d'],
+    'c': ['d', 'e'],
+    'd': ['e','f'],
+    'e': ['a','f'],
+    'f': [],
+    'g': ['b','h'],
+    'h': ['d']
 }
 
 scc_finder = SCCFinder(graph)
