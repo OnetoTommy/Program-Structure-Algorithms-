@@ -90,7 +90,7 @@ class Graph:
 
 if __name__ == "__main__":
 
-    ex = 6
+    ex = 4
 
     if ex == 1:
         g = Graph()

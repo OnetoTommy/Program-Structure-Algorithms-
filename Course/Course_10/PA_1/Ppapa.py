@@ -9,132 +9,51 @@ class Graph:
         """Adds a directed edge from u to v with weight l."""
         self.graph[u].append((v, l))
 
-    def tarjan_scc(self):
-        """Finds all SCCs using Tarjan's Algorithm."""
-        self.index = 0
-        self.stack = []
-        self.index_map = {}  # Node -> Index
-        self.low_link = {}  # Node -> Low Link Value
-        self.on_stack = set()
-        self.sccs = []
+    def dijkstra_shortest_cycle(self, start):
+        """Finds the shortest cycle that includes the start node using Dijkstra's algorithm."""
+        shortest_cycle = defaultdict(lambda: float('inf'))  # ✅ Auto-initialize missing nodes
+        shortest_cycle[start] = 0
+        pq = [(0, start)]  # ✅ Start with distance 0
 
-        def strongconnect(node):
-            self.index_map[node] = self.low_link[node] = self.index
-            self.index += 1
-            self.stack.append(node)
-            self.on_stack.add(node)
+        while pq:
+            current_dis, current_node = heapq.heappop(pq)
 
-            for neighbor, _ in self.graph[node]:
-                if neighbor not in self.index_map:
-                    strongconnect(neighbor)
-                    self.low_link[node] = min(self.low_link[node], self.low_link[neighbor])
-                elif neighbor in self.on_stack:
-                    self.low_link[node] = min(self.low_link[node], self.index_map[neighbor])
+            if current_node in self.graph:
+                for neighbor, weight in self.graph[current_node]:
+                    new_dis = current_dis + weight
 
-            if self.low_link[node] == self.index_map[node]:
-                scc = []
-                while True:
-                    n = self.stack.pop()
-                    self.on_stack.remove(n)
-                    scc.append(n)
-                    if n == node:
-                        break
-                self.sccs.append(scc)
+                    # ✅ Ensure valid cycle (must not be a direct back edge)
+                    if neighbor == start and current_node != start:
+                        return new_dis  # ✅ Return valid cycle length
 
-        for node in self.graph:
-            if node not in self.index_map:
-                strongconnect(node)
+                    if new_dis < shortest_cycle[neighbor]:  # ✅ Only update if beneficial
+                        shortest_cycle[neighbor] = new_dis
+                        heapq.heappush(pq, (new_dis, neighbor))
 
-        return self.sccs
+        return None  # ✅ Return None if no cycle is found
 
-    def dijkstra_Shortest_Cycle(self):
-        """Finds the shortest cycle within each SCC using Dijkstra."""
-        shortest_len = float('inf')
-        scc_finder = self.tarjan_scc()
+    def finding_shortest_cycle(self):
+        """Finds the shortest cycle in the graph by trying all nodes as start points."""
+        if len(self.graph) <= 1:
+            return 0  # ✅ No cycles possible
 
-        # Remove single-node SCCs (which have no cycles)
-        scc_finder = [scc for scc in scc_finder if len(scc) > 1]
-        if not scc_finder:
-            return 0  # No cycles in the graph
+        shortest_dis = float('inf')
 
-        for scc in scc_finder:
-            scc_set = set(scc)  # Convert SCC list to a set for fast lookup
+        for start in self.graph:
+            dis = self.dijkstra_shortest_cycle(start)
+            if dis is not None and dis < shortest_dis:
+                shortest_dis = dis
 
-            for start in scc:
-                # Run Dijkstra from each node in SCC
-                pq = [(0, start)]  # Min heap (distance, node)
-                distances = {node: float('inf') for node in scc}
-                distances[start] = 0
+        return shortest_dis if shortest_dis != float('inf') else 0  # ✅ Return 0 if no cycles exist
 
-                while pq:
-                    current_distance, current_node = heapq.heappop(pq)
-
-                    if current_distance > distances[current_node]:
-                        continue  # Ignore outdated distances
-
-                    for neighbor, weight in self.graph[current_node]:
-                        if neighbor in scc_set:  # Only process nodes inside SCC
-                            new_distance = distances[current_node] + weight
-                            if new_distance < distances[neighbor]:
-                                distances[neighbor] = new_distance
-                                heapq.heappush(pq, (new_distance, neighbor))
-
-                # Check for the shortest cycle by considering all paths returning to `start`
-                for node in scc:
-                    for neighbor, weight in self.graph[node]:  # Edge from node → neighbor
-                        if neighbor == start:  # Direct return edge to start
-                            cycle_length = distances[node] + weight
-                            shortest_len = min(shortest_len, cycle_length)
-
-        return shortest_len if shortest_len != float('inf') else 0
-
-# Example Usage
+# ✅ Test Cases
 if __name__ == "__main__":
+    g = Graph()
+    g.add_Direct_Edge(0, 1, 1)
+    g.add_Direct_Edge(1, 2, 2)
+    g.add_Direct_Edge(2, 3, 3)
+    g.add_Direct_Edge(3, 1, 4)  # ✅ Forms a cycle: 1 → 2 → 3 → 1
 
-    ex = 3
-
-    if ex == 1:
-        g = Graph()
-        g.add_Direct_Edge(0, 1, 4)
-        g.add_Direct_Edge(0, 7, 8)
-        g.add_Direct_Edge(1, 2, 8)
-        g.add_Direct_Edge(1, 7, 11)
-        g.add_Direct_Edge(2, 3, 7)
-        g.add_Direct_Edge(2, 8, 2)
-        g.add_Direct_Edge(2, 5, 4)
-        g.add_Direct_Edge(3, 4, 9)
-        g.add_Direct_Edge(3, 5, 14)
-        g.add_Direct_Edge(4, 5, 10)
-        g.add_Direct_Edge(5, 6, 2)
-        g.add_Direct_Edge(6, 7, 1)
-        g.add_Direct_Edge(6, 8, 8)
-        g.add_Direct_Edge(7, 8, 7)
-
-        src = 0
-    if ex == 2:
-        g = Graph()
-        g.add_Direct_Edge(0, 1, 5)
-        g.add_Direct_Edge(0, 2, 8)
-        g.add_Direct_Edge(1, 2, 9)
-        g.add_Direct_Edge(1, 3, 2)
-        g.add_Direct_Edge(2, 3, 6)
-        src = 0
-    if ex == 3:
-        g = Graph()
-        g.add_Direct_Edge(1, 2, 1)
-        g.add_Direct_Edge(2, 3, 1)
-        g.add_Direct_Edge(2, 5, 1)
-        g.add_Direct_Edge(3, 6, 1)
-        g.add_Direct_Edge(4, 1, 1)
-        g.add_Direct_Edge(5, 4, 1)
-
-    if ex == 4:
-        g = Graph()
-        g.add_Direct_Edge(0, 1, 1)
-        g.add_Direct_Edge(1, 2, 2)
-        g.add_Direct_Edge(2, 3, 3)
-        g.add_Direct_Edge(3, 1, 4)
-        g.add_Direct_Edge(3, 0, 5)
-
-
-        print(g.dijkstra_Shortest_Cycle())
+    # Run shortest cycle detection
+    shortest_cycle_test_case = g.finding_shortest_cycle()
+    print("The length of the shortest cycle is:", shortest_cycle_test_case)
