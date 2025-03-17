@@ -1,22 +1,17 @@
 def earliest_start_selector(s, f):
-    """
-    Select activities based on the earliest start time (greedy)
-    :param s: List of start times
-    :param f: List of finish times
-    :return: Set of selected activities
-    """
     n = len(s)
-    activities = sorted(range(n), key=lambda i: s[i])  # Sort by start time
-
-    selected = set()
-    last_finish_time = -1
-
-    for i in activities:
-        if s[i] >= last_finish_time:
-            selected.add(i)
-            last_finish_time = f[i]  # Update last selected activity's finish time
+    s = sorted(range(n), key=lambda i: s[i])
+    selector = set()
+    last_f_time = -1
+    for i in s:
+        if s[i] >= last_f_time:
+            selector.add(s[i])
+            last_f_time = f[i]
+    return selector
 
     return selected
+
+
 
 
 # Example Usage
