@@ -1,6 +1,6 @@
 import heapq  # Importing heapq for priority queue (min-heap)
 from collections import defaultdict  # Importing defaultdict for adjacency list representation
-    
+
 class Graph:
     def __init__(self, graph):
         """
