@@ -13,13 +13,13 @@ class Graph:
     def dijkstra_shortest_path(self, src):
         # Priority queue (pq) to store vertices being preprocessed
         # (weight, vertex)
-        
- 
+
         # Initialize all distances as infinite (INF)
         dist = [float('inf')] * self.numV
         dist[src] = 0
         pq = [(dist[src], src)]
- 
+
+        # (v+E)logV
         # Looping until the pq becomes empty
         while pq:
             # Extract the vertex with min weight from the pq
@@ -40,7 +40,7 @@ class Graph:
 
 if __name__ == "__main__":
 
-    ex = 4
+    ex = 2
 
     # if ex == 1:
     #     V = 9
@@ -79,7 +79,7 @@ if __name__ == "__main__":
         g = Graph(V)
         g.add_edge(0, 1, 1)
         g.add_edge(1, 2, 2)
-        g.add_edge(2, 3, 3)
+        g.add_edge(2, 3, -30)
         g.add_edge(3, 1, 4)
         g.add_edge(3, 0, 5)
         src = 0
