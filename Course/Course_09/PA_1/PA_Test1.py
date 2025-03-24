@@ -17,10 +17,13 @@ class Graph:
         :param start: The node from which to start searching for a cycle.
         :return: Length of the shortest cycle if found, otherwise None.
         """
-        pq = [(0, start)]  # Priority queue initialized with the start node
-        distances = {start: 0}  # Initialize distances with 0 for the start node
-        visited = set()  # To track visited nodes
-        parent = {start: None}  # To track parent nodes for cycle detection
+        # Priority queue entries are tuples of (distance, current_node)
+        pq = [(0, start)]
+        # Distance dictionary stores shortest known distance to each node
+        distances = {start: 0}
+        # Keep track of visited nodes to avoid revisiting
+        visited = set()
+        parent = {start: None}  # To track the parent of each node for cycle detection
 
         while pq:
             dist, current_node = heapq.heappop(pq)
@@ -29,16 +32,16 @@ class Graph:
             if current_node in visited:
                 continue
 
-            # If we revisit the start node and it's not a direct back edge
+            # Check for cycle: if we revisit the start node and it's not a direct back edge
             if current_node == start and dist > 0:
-                return dist  # This forms a cycle
+                return dist
 
             visited.add(current_node)
 
-            # For each neighbor and its weight
+            # For each neighbor and weight from current node
             for neighbor, weight in self.graph.get(current_node, []):
                 if neighbor in visited:
-                    # If we find a path back to the start node, it's a cycle
+                    # If we find a path back to start_node, it's a cycle
                     if neighbor == start and current_node != parent[start]:
                         return dist + weight
                     continue
@@ -110,4 +113,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

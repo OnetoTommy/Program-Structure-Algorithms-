@@ -111,3 +111,7 @@ def main():
 if __name__ == "__main__":
     main()
 
+    gr = read_graph_from_file("testcase-8.txt")
+    for node, neighbors in gr.items():
+        print(f"Node {node} has neighbors: {neighbors}")
+
