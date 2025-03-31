@@ -42,5 +42,5 @@ def print_cut_rod(p, n, debug = 0):
         #n = n - s[n]
 
 p = [0, 1, 5, 8, 9, 10, 17, 17, 20]
-debug = 0
+debug = 2
 print_cut_rod(p, len(p)-1, debug)
