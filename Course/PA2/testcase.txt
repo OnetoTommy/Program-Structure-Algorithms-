@@ -1,0 +1,4 @@
+PA2.py --target purple --wordbank purp p ur le purpl
+PA2.py --target hello --wordbank cat dog mouse
+PA2.py --target '' --wordbank cat dog mouse
+PA2.py --target apple --wordbank a p l e

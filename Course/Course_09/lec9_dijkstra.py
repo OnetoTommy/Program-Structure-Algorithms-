@@ -40,7 +40,7 @@ class Graph:
 
 if __name__ == "__main__":
 
-    ex = 2
+    ex = 4
 
     # if ex == 1:
     #     V = 9
@@ -77,11 +77,11 @@ if __name__ == "__main__":
     if ex == 4:
         V = 4
         g = Graph(V)
-        g.add_edge(0, 1, 1)
-        g.add_edge(1, 2, 2)
-        g.add_edge(2, 3, -30)
-        g.add_edge(3, 1, 4)
-        g.add_edge(3, 0, 5)
+        g.add_edge(0, 1, 3)
+        g.add_edge(0, 2, 2)
+        g.add_edge(0, 3, 2)
+        g.add_edge(2, 3, -1)
+        g.add_edge(1, 2, -2)
         src = 0
 
 

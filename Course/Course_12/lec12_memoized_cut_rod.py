@@ -16,11 +16,6 @@ def recursion(p,n,r):
     return q
 
 
-
-
-
-
-
 p = [0, 1, 5, 8, 9, 10, 17, 17, 20]
 n = len(p)-1
 print(memoized_cut_rod(p,n))
