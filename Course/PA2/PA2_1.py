@@ -52,8 +52,10 @@ def all_construct(target, wordbank, memo=None):
         return memo[target]
 
     if target == "":
+        print(f"Solved subproblem for '': [[]]")
         return [[]]  # Base case: one valid way to construct nothing
 
+    print(f"Solving subproblem for: '{target}'")
     result = []
 
     for word in wordbank:
@@ -63,6 +65,7 @@ def all_construct(target, wordbank, memo=None):
             target_ways = [[word] + way for way in suffix_ways]  # Prepend current word
             result.extend(target_ways)  # Add all combinations to result
 
+    print(f"Solved subproblem for '{target}': {result}")
     memo[target] = result  # Save in memo before returning
     return result
 

@@ -7,9 +7,8 @@ def solution(nums, i, memo = None):
 
     if i == len(nums) - 1:
         return nums[i]
-
-    sum = 0
-    sum = max(sum, solution(nums, i+1, memo) + nums[i])
+    sum = max(nums[i], solution(nums, i+1, memo) + nums[i])
+    print(sum)
     memo[i] = sum
     return sum
 
