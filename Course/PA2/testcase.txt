@@ -1,5 +1,9 @@
-PA2.py --target purple --wordbank purp p ur le purpl
-PA2.py --target hello --wordbank cat dog mouse
-PA2.py --target '' --wordbank cat dog mouse
-PA2.py --target apple --wordbank e p l a
-PA2.py --target purple --wordbank purp p ur le purpl l e
+# Test cases for PA2.py
+# Each line contains a command to test the program
+# Format: python3 PA2.py -target $target string –wordbank $list of strings
+
+python3 PA2.py -target hello -wordbank cat dog mouse
+python3 PA2.py -target '' -wordbank cat dog mouse
+python3 PA2.py -target apple -wordbank e p l a
+python3 PA2.py -target purple -wordbank purp p ur le purpl l e
+python3 PA2.py -target purple -wordbank
