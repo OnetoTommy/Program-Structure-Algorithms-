@@ -3,7 +3,10 @@
 # Format: python3 PA2.py -target $target string –wordbank $list of strings
 
 python3 PA2.py -target hello -wordbank cat dog mouse
-python3 PA2.py -target '' -wordbank cat dog mouse
+python3 PA2.py -target "" -wordbank cat dog mouse
 python3 PA2.py -target apple -wordbank e p l a
 python3 PA2.py -target purple -wordbank purp p ur le purpl l e
-python3 PA2.py -target purple -wordbank
+python3 PA2.py -target purple -wordbank ""
+python3 PA2.py -target "" -wordbank ""
+python3 PA2.py --target apple -wordbank a p ap
+python3 PA2.py -target apple-wordbank a p ap

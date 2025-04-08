@@ -1,0 +1,5 @@
+python PA2.py --target purple --wordbank "purp p ur le purpl"
+python PA2.py --target purple --wordbank "purp le p ur ple"
+python PA2.py --target abc --wordbank "a b c ab bc"
+python PA2.py --target "" --wordbank "a b c"
+python PA2.py --target hello --wordbank ""
