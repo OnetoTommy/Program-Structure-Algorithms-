@@ -48,10 +48,6 @@ def all_construct(target, wordbank, memo=None):
     if memo is None:
         memo = {}
 
-    # Base case: If wordbank is empty and target is not empty, return empty list
-    if not wordbank and target != "":
-        return []
-
     if target == "":
         return [[]]  # Base case: one valid way to construct nothing
 
@@ -106,6 +102,11 @@ def main():
     wordbank = args.wordbank
     if not isinstance(wordbank, list) or not all(isinstance(word, str) for word in wordbank):
         print("Error: Wordbank must be a list of strings.")
+        return
+
+    # Base case: If wordbank is empty and target is not empty, return empty list
+    if not wordbank and target != "":
+        print("Error: Wordbank is empty.")
         return
 
     # Timing the solution process
