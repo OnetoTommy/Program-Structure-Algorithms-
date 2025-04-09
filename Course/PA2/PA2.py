@@ -27,6 +27,14 @@ all_construct(target) = [
 Base Case:
 ----------
 If the target is an empty string, we return `[[]]`, representing one valid way to construct nothing.
+
+Memoization:
+----------
+Use a dictionary to cache results for target substrings
+
+Print subproblem:
+----------
+Print solution for each subproblem as it is computed
 """
 
 import argparse
