@@ -55,8 +55,8 @@ def all_construct(target, wordbank, memo=None):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-target', required=True, help='Target string')
-    parser.add_argument('-wordbank', required=True, help='Space-separated list of words')
+    parser.add_argument('--target', required=True, help='Target string')
+    parser.add_argument('--wordbank', required=True, help='Space-separated list of words')
     args = parser.parse_args()
 
     target = args.target
@@ -73,13 +73,11 @@ def main():
     result = all_construct(target, wordbank)
     end_time = time.time()
 
-    print(f"Number of ways: {len(result)}")
-    print("[")
+    print("\n=== All Ways to Construct Target ===")
     for way in result:
-        formatted_way = [f"\"{word}\"" for word in way]
-        print(f"[ {', '.join(formatted_way)} ]")
-    print("]")
-    print(f"Runtime: {end_time - start_time:.6f} seconds")
+        print(way)
+
+    print(f"\nRuntime: {end_time - start_time:.6f} seconds")
 
 if __name__ == '__main__':
     main()

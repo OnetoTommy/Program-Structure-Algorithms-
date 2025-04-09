@@ -117,7 +117,8 @@ def main():
     print(f"\nNumber of ways: {len(ways)}")
     print("[")
     for way in ways:
-        print(f"  {way}")
+        formatted_way = [f"\"{word}\"" for word in way]
+        print(f"[ {', '.join(formatted_way)} ]")
     print("]")
     print(f"Runtime: {end_time - start_time:.6f} seconds\n")
 
