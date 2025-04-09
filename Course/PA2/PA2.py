@@ -45,29 +45,32 @@ def all_construct(target, wordbank, memo=None):
      Returns:
          List[List[str]]: A list of all combinations (as lists) that form the target.
      """
-    if memo is None: #If memo is none, return memo = {}
+    if memo is None:
         memo = {}
 
-    if target in memo: # If target belongs to memo, return memo[target]
-        return memo[target]
-
-    # print(f"Solving: '{target}'")
+    # Base case: If wordbank is empty and target is not empty, return empty list
+    if not wordbank and target != "":
+        return []
 
     if target == "":
         return [[]]  # Base case: one valid way to construct nothing
 
+    if target in memo:  # If target is already computed, return the cached result
+        return memo[target]
+
     result = []
 
+    # Iterate through the wordbank to check for prefix matches
     for word in wordbank:
         if target.startswith(word):
-            suffix = target[len(word):]  # Remove prefix
-            suffix_ways = all_construct(suffix, wordbank, memo)  # Recurse on suffix
-            target_ways = [[word] + way for way in suffix_ways]  # Prepend current word
-            result.extend(target_ways)  # Add all combinations to result
+            suffix = target[len(word):]  # Remove the prefix (word)
+            suffix_ways = all_construct(suffix, wordbank, memo)  # Recursively solve for the suffix
+            target_ways = [[word] + way for way in suffix_ways]  # Prepend current word to each solution
+            result.extend(target_ways)  # Add all combinations to the result
 
-    memo[target] = result  # Save in memo before returning
+    memo[target] = result  # Save the result in memo before returning
 
-    print(f"Subproblem: '{target}' => {result}") #Print the solution to each subproblem in the order
+    print(f"Subproblem: '{target}' → {result}")
     return result
 
 
@@ -79,6 +82,10 @@ def main():
     parser.add_argument('-target', type=str, required=True, help="The target string to construct.")
     parser.add_argument('-wordbank', nargs='*', default=[], help="The list of words in the wordbank (optional).")
     args = parser.parse_args()
+
+    # If wordbank is explicitly provided as an empty string, treat it as an empty list
+    if args.wordbank == ['']:
+        args.wordbank = []
 
     # Join raw input to check for malformed syntax
     raw_args = " ".join(sys.argv)
@@ -101,10 +108,12 @@ def main():
         print("Error: Wordbank must be a list of strings.")
         return
 
+    # Timing the solution process
     start_time = time.time()
     ways = all_construct(target, wordbank)
     end_time = time.time()
 
+    # Print the results
     print(f"\nNumber of ways: {len(ways)}")
     print("[")
     for way in ways:

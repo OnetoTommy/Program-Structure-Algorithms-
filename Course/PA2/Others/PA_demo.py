@@ -1,23 +1,43 @@
 import argparse
 import time
+import sys
 
 def all_construct(target, wordbank, memo=None):
+    """
+    Recursively builds all possible ways to construct the target using words from the wordbank.
+
+    Args:
+        target (str): The target string to construct.
+        wordbank (List[str]): List of words that can be used to construct the target.
+        memo (dict): Memoization dictionary to store results of subproblems.
+
+    Returns:
+        List[List[str]]: A list of all combinations (as lists) that form the target.
+    """
     if memo is None:
         memo = {}
+
+    # Base case: If wordbank is empty and target is not empty, return empty list
+    if not wordbank and target != "":
+        return []
 
     if target == "":
         return [[]]  # Base case: one valid way to construct nothing
 
+    if target in memo:  # If target is already computed, return the cached result
+        return memo[target]
+
     result = []
 
+    # Iterate through the wordbank to check for prefix matches
     for word in wordbank:
         if target.startswith(word):
-            suffix = target[len(word):]  # Remove prefix
-            suffix_ways = all_construct(suffix, wordbank, memo)  # Recurse on suffix
-            target_ways = [[word] + way for way in suffix_ways]  # Prepend current word
-            result.extend(target_ways)  # Add all combinations to result
+            suffix = target[len(word):]  # Remove the prefix (word)
+            suffix_ways = all_construct(suffix, wordbank, memo)  # Recursively solve for the suffix
+            target_ways = [[word] + way for way in suffix_ways]  # Prepend current word to each solution
+            result.extend(target_ways)  # Add all combinations to the result
 
-    memo[target] = result  # Save in memo before returning
+    memo[target] = result  # Save the result in memo before returning
     return result
 
 
@@ -30,13 +50,37 @@ def main():
     parser.add_argument('-wordbank', nargs='*', default=[], help="The list of words in the wordbank (optional).")
     args = parser.parse_args()
 
-    target = args.target
-    wordbank = args.wordbank
+    # If wordbank is explicitly provided as an empty string, treat it as an empty list
+    if args.wordbank == ['']:
+        args.wordbank = []
 
+    # Join raw input to check for malformed syntax
+    raw_args = " ".join(sys.argv)
+
+    # Warnings for possible missing spaces near -target or -wordbank
+    if "-target" in raw_args and not " -target " in raw_args:
+        print("Warning: Missing space before or after -target. Did you mean `-target yourstring`?")
+    if "-wordbank" in raw_args and not " -wordbank " in raw_args:
+        print("Warning: Missing space before or after -wordbank. Did you mean `-wordbank word1 word2 ...`?")
+
+    # Validate the target
+    target = args.target
+    if not isinstance(target, str):
+        print("Error: Invalid format for target string.")
+        return
+
+    # Validate wordbank is a list of strings
+    wordbank = args.wordbank
+    if not isinstance(wordbank, list) or not all(isinstance(word, str) for word in wordbank):
+        print("Error: Wordbank must be a list of strings.")
+        return
+
+    # Timing the solution process
     start_time = time.time()
     ways = all_construct(target, wordbank)
     end_time = time.time()
 
+    # Print the results
     print(f"\nNumber of ways: {len(ways)}")
     print("[")
     for way in ways:
